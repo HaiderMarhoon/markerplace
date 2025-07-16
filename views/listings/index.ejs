@@ -14,7 +14,7 @@
     <ul>
         <% foundListings.forEach((listing)=>{%>
             <li>
-                <h2><%= listing.title %></h2>
+                <a href="/listings/<%= listing._id %>"><h2><%= listing.title %></h2></a>
                 <p><%= listing.description %></p>
                 <p><%= listing.price %> BHD</p>
                 <img src="<%= listing.image %>" class="Listing-img" alt="Image of <%= listing.title %>"/>
