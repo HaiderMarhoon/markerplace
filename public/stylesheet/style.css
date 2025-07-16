@@ -5,3 +5,15 @@ form{
     display: flex;
     flex-direction: column;
 }
+.Listing-img{
+    width: 50vw;
+}
+ul{
+    margin: 0%;
+    padding: auto;
+}
+
+li{
+    list-style: none;
+    text-align: center;
+}

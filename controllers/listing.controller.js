@@ -5,14 +5,27 @@ const Listing = require("../models/listing")
 
 
 //new page
-router.get("/new" ,(req,res) =>{
+router.get("/new", (req, res) => {
     res.render("listings/new.ejs")
 
 })
 
-router.post("/", async (req,res) =>{
-    await Listing.create(req.body)
-    res.send("your submitted")
+router.post("/", async (req, res) => {
+    try {
+        await Listing.create(req.body)
+        res.redirect("/listings")
+    }
+    catch(error){
+        console.log(error)
+        res.send("Sometings wrong")
+    }
+})
+
+// index page
+router.get("/",async (req,res) =>{
+    const foundListings = await Listing.find()
+    console.log(foundListings)
+    res.render("listings/index.ejs",{foundListings:foundListings})
 })
 
 
@@ -23,4 +36,4 @@ router.post("/", async (req,res) =>{
 
 
 
-module.exports= router
+module.exports = router
