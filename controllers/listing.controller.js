@@ -31,11 +31,21 @@ router.get("/",async (req,res) =>{
 })
 
 //show
-router.get("/:ListingId" , async(req,res) =>{
-    const foundListing = await Listing.findById(req.params.listingId).populate("seller")
-    res.render("listings/show.ejs" , {foundListing:foundListing})
+router.get("/:listingId" , async(req,res) =>{
+    const foundListings = await Listing.findById(req.params.listingId).populate("seller")
+    console.log(foundListings)
+    res.render("listings/show.ejs" , {foundListings:foundListings})
 })
 
+router.delete("/:listingId",async(req,res) =>{
+    const foundListings = await Listing.findById(req.params.listingId).populate("seller")
+    if(foundListings.seller._id.equals(req.session.user._id)){
+        await foundListings.deleteOne();
+        res.redirect("/listingsrs")
+    }
+
+    return res.send("Not authorized")
+})
 
 
 

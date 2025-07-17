@@ -1,16 +1,37 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/stylesheets/style.css">
-    <title><%= foundListing.title %></title>
+    <title>
+        <%= foundListings.title %>
+    </title>
 </head>
+
 <body>
-    <h2><%= foundListing.title %></h2>
-    <p><%= foundListing.description %></p>
-    <p>Seller :<%= foundListing.seller.username %> </p>
-    <p><strong><%= foundListing.price %> BHD</strong></p>
-    <img src="<%= foundListing.image %>" class="listing-img" alt="Image of <%= foundListing.title %>" />
+    <h2>
+        <%= foundListings.title %>
+    </h2>
+    <p>
+        <%= foundListings.description %>
+    </p>
+    <p>Seller :<%= foundListings.seller.username %>
+    </p>
+    <p><strong>
+            <%= foundListings.price %> BHD
+        </strong></p>
+    <img src="<%= foundListings.image %>" class="listing-img" alt="Image of <%= foundListings.title %>" />
+
+    <% if (foundListings.seller._id.equals(user._id)) { %>
+        <form action="/listings/<%= foundListings._id %>?_method=DELETE" method="POST">
+            <button type="submit">Delete</button>
+        </form>
+        <button>Edit</button>
+        <% } %>
+
+            <a href="/listings/">Show the listing</a>
 </body>
+
 </html>
