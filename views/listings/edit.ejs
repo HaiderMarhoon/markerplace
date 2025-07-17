@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/stylesheet/style.css">
+    <title>Edit <%=foundListings.title%></title>
+</head>
+
+<body>
+    <h1>Edit listing</h1>
+    <form action="/listings/<%=foundListings._id%>?_method=PUT" method="POST">
+        <label for="title">Title:</label>
+        <input type="text" name="title" value="<%=foundListings.title%>" required>
+
+        <label for="description">Description:</label>
+        <textarea type="text" name="description" required><%=foundListings.description%></textarea>
+
+        <label for="price">Price:</label>
+        <input type="number" name="price" value="<%=foundListings.price%>" required>
+
+        <label for="image">Image:</label>
+        <input type="text" name="image" value="<%=foundListings.image%>" required>
+
+        <button type="submit">Edit listing</button>
+    </form>
+    <a href="/listings/">Show the listing</a>
+
+</body>
+
+</html>

@@ -4,6 +4,7 @@ body{
 form{
     display: flex;
     flex-direction: column;
+    width: 90vw;
 }
 .Listing-img{
     width: 50vw;
@@ -16,4 +17,12 @@ ul{
 li{
     list-style: none;
     text-align: center;
+}
+
+.action{
+    display: flex;
+    flex-direction: column;
+}
+#edit-button{
+    width: 90vw;
 }
