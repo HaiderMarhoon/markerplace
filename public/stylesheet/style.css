@@ -1,5 +1,6 @@
 body{
     background-color:blanchedalmond;
+    color: azure;
 }
 form{
     display: flex;
@@ -17,6 +18,7 @@ ul{
 li{
     list-style: none;
     text-align: center;
+    color: antiquewhite;
 }
 
 .action{

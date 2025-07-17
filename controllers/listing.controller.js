@@ -2,6 +2,8 @@ const express = require("express")
 const router = express.Router()
 const Listing = require("../models/listing")
 const isSignedIn = require("../middleware/is-signed-in")
+const { cloudinary } = require("../congif/cloudinary")
+const upload = require ("../congif/multer")
 
 
 
@@ -11,9 +13,13 @@ router.get("/new", isSignedIn, (req, res) => {
 
 })
 // post to dB
-router.post("/", isSignedIn, async (req, res) => {
+router.post("/", isSignedIn, upload.single('image') ,async (req, res) => {
     try {
         req.body.seller = req.session.user._id
+        req.body.image = {
+            url: req.file.path,
+            cloudinary_id: req.file.filename
+        }
         await Listing.create(req.body)
         res.redirect("/listings")
     }
@@ -47,7 +53,7 @@ router.delete("/:listingId",isSignedIn, async (req, res) => {
     const foundListings = await Listing.findById(req.params.listingId).populate("seller")
     if (foundListings.seller._id.equals(req.session.user._id)) {
         await foundListings.deleteOne();
-        return res.redirect("/listingsrs")
+        return res.redirect("/listings")
     }
 
     return res.send("Not authorized")

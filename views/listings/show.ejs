@@ -1,53 +1,40 @@
-<!DOCTYPE html>
-<html lang="en">
+<%- include('../partials/head') %>
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/stylesheets/style.css">
-    <title>
-        <%= foundListings.title %>
-    </title>
-</head>
+<div class="container mt-4" style="max-width: 700px;">
+  <h2 class="text-center mb-3"><%= foundListings.title %></h2>
 
-<body>
-    <h2>
-        <%= foundListings.title %>
-    </h2>
-    <p>
-        <%= foundListings.description %>
-    </p>
-    <p>Seller :<%= foundListings.seller.username %>
-    </p>
-    <p><strong>
-            <%= foundListings.price %> BHD
-        </strong></p>
-    <img src="<%= foundListings.image %>" class="listing-img" alt="Image of <%= foundListings.title %>" />
+  <img src="<%= foundListings.image.url %>" class="img-fluid rounded mb-3" alt="Image of <%= foundListings.title %>">
 
-    <% if (foundListings.seller._id.equals(user._id)) { %>
-        <div class="action">
-            <form action="/listings/<%= foundListings._id %>?_method=DELETE" method="POST">
-                <button type="submit">Delete</button>
-            </form>
-            <a href="/listings/<%= foundListings._id %>/edit">
-                <button id="edit-button">Edit</button>
-            </a>
-        </div>
-        <% } %>
-            <h3>Leave a comment</h3>
-            <form action="/listings/<%= foundListings._id %>/comments" method="POST">
-                <textarea name="content" id="content" maxlength="10" ></textarea>
-                <button type="submit">Post comment</button>
-            </form>
-            <h3>Comments</h3>
-            <ul>
-                <% foundListings.comments.forEach((comment) =>{%>
-                    <li>
-                        <%=comment.content%> - <%=comment.author.username%>
-                    </li>
-                <%})%>
-            </ul>
-            <a href="/listings/">Show the listing</a>
+  <p class="lead"><%= foundListings.description %></p>
+  <p><strong>Price:</strong> <%= foundListings.price %> BHD</p>
+  <p><strong>Seller:</strong> <%= foundListings.seller.username %></p>
+
+  <% if (foundListings.seller._id.equals(user._id)) { %>
+    <div class="d-flex justify-content-between mb-4">
+      <form action="/listings/<%= foundListings._id %>?_method=DELETE" method="POST">
+        <button type="submit" class="btn btn-danger">Delete</button>
+      </form>
+      <a href="/listings/<%= foundListings._id %>/edit" class="btn btn-warning">Edit</a>
+    </div>
+  <% } %>
+
+  <h3 class="text-center">Leave a Comment</h3>
+  <form action="/listings/<%= foundListings._id %>/comments" method="POST" class="mb-4">
+    <div class="mb-3">
+      <textarea name="content" class="form-control" rows="3" required></textarea>
+    </div>
+    <button type="submit" class="btn btn-primary">Post Comment</button>
+  </form>
+
+  <h3 class="text-center">Comments</h3>
+  <ul class="list-group">
+    <% foundListings.comments.forEach((comment) => { %>
+      <li class="list-group-item">
+        <%= comment.content %> — <em><%= comment.author.username %></em>
+      </li>
+    <% }) %>
+  </ul>
+</div>
+
 </body>
-
 </html>

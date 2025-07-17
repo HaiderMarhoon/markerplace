@@ -1,4 +1,5 @@
 const mongoose = require("mongoose")
+const { CloudinaryStorage } = require("multer-storage-cloudinary")
 const Schema = mongoose.Schema
 
 const commentSchema = new mongoose.Schema({
@@ -15,7 +16,16 @@ const listingSchema = new mongoose.Schema({
     title: String,
     description: String,
     price: String,
-    image: String,
+    image: {
+        url: {
+            type:String,
+            required: true
+        },
+        cloudinary_id: {
+            type:String,
+            required: true
+        }
+    },
     seller:{
         type: Schema.Types.ObjectId,
         ref:"User"

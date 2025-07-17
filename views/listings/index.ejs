@@ -1,5 +1,5 @@
 <%- include("../partials/head")%>
-    <h1>Marketplace listing</h1>
+    <h1 class="text-center">Marketplace listing</h1>
     <a href="/auth/sign-out">Sign out</a>
     <ul>
         <% foundListings.forEach((listing)=>{%>
@@ -15,7 +15,7 @@
                 <p>
                     <%= listing.price %> BHD
                 </p>
-                <img src="<%= listing.image %>" class="Listing-img" alt="Image of <%= listing.title %>" />
+                <img src="<%= listing.image.url %>" class="Listing-img" alt="Image of <%= listing.title %>" />
             </li>
             <%})%>
     </ul>
