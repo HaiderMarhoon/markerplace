@@ -32,12 +32,18 @@ router.get("/", async (req, res) => {
 
 //show
 router.get("/:listingId", async (req, res) => {
+    try{
     const foundListings = await Listing.findById(req.params.listingId).populate("seller").populate("comments.author")
     console.log(foundListings)
     res.render("listings/show.ejs", { foundListings: foundListings })
+    }
+    catch(error){
+        console.log(error)
+        res.send("Sorry you cant access")
+    }
 })
 
-router.delete("/:listingId", async (req, res) => {
+router.delete("/:listingId",isSignedIn, async (req, res) => {
     const foundListings = await Listing.findById(req.params.listingId).populate("seller")
     if (foundListings.seller._id.equals(req.session.user._id)) {
         await foundListings.deleteOne();
@@ -47,7 +53,7 @@ router.delete("/:listingId", async (req, res) => {
     return res.send("Not authorized")
 })
 
-router.get("/:listingId/edit", async (req, res) => {
+router.get("/:listingId/edit",isSignedIn, async (req, res) => {
     try {
         const foundListings = await Listing.findById(req.params.listingId).populate("seller")
         if (foundListings.seller._id.equals(req.session.user._id)) {
@@ -61,7 +67,7 @@ router.get("/:listingId/edit", async (req, res) => {
     }
 })
 
-router.put('/:listingId', async (req, res) => {
+router.put('/:listingId',isSignedIn, async (req, res) => {
         try {
         const foundListings = await Listing.findById(req.params.listingId).populate("seller")
         if (foundListings.seller._id.equals(req.session.user._id)) {
