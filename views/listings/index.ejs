@@ -10,17 +10,26 @@
 
 <body>
     <h1>Marketplace listing</h1>
-
+    <a href="/auth/sign-out">Sign out</a>
     <ul>
         <% foundListings.forEach((listing)=>{%>
             <li>
-                <a href="/listings/<%= listing._id %>"><h2><%= listing.title %></h2></a>
-                <p><%= listing.description %></p>
-                <p><%= listing.price %> BHD</p>
-                <img src="<%= listing.image %>" class="Listing-img" alt="Image of <%= listing.title %>"/>
+                <a href="/listings/<%= listing._id %>">
+                    <h2>
+                        <%= listing.title %>
+                    </h2>
+                </a>
+                <p>
+                    <%= listing.description %>
+                </p>
+                <p>
+                    <%= listing.price %> BHD
+                </p>
+                <img src="<%= listing.image %>" class="Listing-img" alt="Image of <%= listing.title %>" />
             </li>
             <%})%>
     </ul>
+
 </body>
 
 </html>

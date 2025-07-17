@@ -32,7 +32,7 @@ router.get("/", async (req, res) => {
 
 //show
 router.get("/:listingId", async (req, res) => {
-    const foundListings = await Listing.findById(req.params.listingId).populate("seller")
+    const foundListings = await Listing.findById(req.params.listingId).populate("seller").populate("comments.author")
     console.log(foundListings)
     res.render("listings/show.ejs", { foundListings: foundListings })
 })
@@ -76,6 +76,14 @@ router.put('/:listingId', async (req, res) => {
     }
 })
 
+// comment to db
+router.post("/:listingId/comments", async(req,res) =>{
+    const foundListings = await Listing.findById(req.params.listingId)
+    req.body.author = req.session.user._id
+    foundListings.comments.push(req.body)
+    await foundListings.save()
+    res.redirect(`/listings/${req.params.listingId}`)
+})
 
 
 
